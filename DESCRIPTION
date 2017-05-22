@@ -1,0 +1,22 @@
+Package: metis
+Type: Package
+Title: Helpers for Accessing and Querying Amazon Athena
+Version: 0.1.0
+Date: 2017-05-16
+Author: Bob Rudis (bob@rud.is)
+Maintainer: Bob Rudis <bob@rud.is>
+Description: Helpers for Accessing and Querying Amazon Athena. Including a lightweight RJDBC shim.
+URL: https://github.com/hrbrmstr/metis
+BugReports: https://github.com/hrbrmstr/metis/issues
+License: AGPL
+Suggests:
+    testthat,
+    covr
+Depends:
+    R (>= 3.2.0),
+    RJDBC
+Imports:
+    DBI,
+    dplyr,
+    ini
+RoxygenNote: 6.0.1
