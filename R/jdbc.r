@@ -9,7 +9,7 @@ setClass("AthenaDriver", representation("JDBCDriver", identifier.quote="characte
 Athena <- function(identifier.quote='`') {
   drv <- JDBC(driverClass="com.amazonaws.athena.jdbc.AthenaDriver",
               system.file("AthenaJDBC41-1.0.1.jar", package="metis"),
-              identifier.quote="'")
+              identifier.quote=identifier.quote)
   return(as(drv, "AthenaDriver"))
 }
 
@@ -23,8 +23,10 @@ setMethod(
 
   def = function(drv,
                  provider = "com.amazonaws.athena.jdbc.shaded.com.amazonaws.auth.EnvironmentVariableCredentialsProvider",
-                 conn_string = 'jdbc:awsathena://athena.us-east-1.amazonaws.com:443/',
-                 schema_name, ...) {
+                 region = "us-east-1",
+                 schema_name = "default", ...) {
+
+     conn_string = sprintf('jdbc:awsathena://athena.%s.amazonaws.com:443/', region)
 
     if (!is.null(provider)) {
 
@@ -35,8 +37,7 @@ setMethod(
 
     } else {
 
-      jc <- callNextMethod(drv,
-                       'jdbc:awsathena://athena.us-east-1.amazonaws.com:443/',
+      jc <- callNextMethod(drv, conn_string,
                        s3_staging_dir=Sys.getenv("AWS_S3_STAGING_DIR"),
                        schema_name=schema_name,
                        user = Sys.getenv("AWS_ACCESS_KEY_ID"),
@@ -85,7 +86,7 @@ setMethod(
   def = function(conn, statement, ...) {
     r <- dbSendQuery(conn, statement, ...)
     on.exit(.jcall(r@stat, "V", "close"))
-    dplyr::tbl_df(fetch(r, -1, block=256))
+    dplyr::tbl_df(fetch(r, -1, block=1000))
   }
 
 )

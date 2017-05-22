@@ -7,8 +7,7 @@
 \usage{
 \S4method{dbConnect}{AthenaDriver}(drv,
   provider = "com.amazonaws.athena.jdbc.shaded.com.amazonaws.auth.EnvironmentVariableCredentialsProvider",
-  conn_string = "jdbc:awsathena://athena.us-east-1.amazonaws.com:443/",
-  schema_name, ...)
+  region = "us-east-1", schema_name = "default", ...)
 }
 \description{
 AthenaJDBC

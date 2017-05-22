@@ -11,6 +11,8 @@ The goal will be to get around enough of the "gotchas" that are preventing raw R
 
 It will also support more than the vanilla id/secret auth mechism (it currently support the default basic auth and temp token auth, the latter via environment variables).
 
+This package includes the `AthenaJDBC41-1.0.1.jar` JAR file out of convenience but that will likely move to a separate package as this gets closer to prime time.
+
 See the **Usage** section for an example.
 
 The following functions are implemented:

@@ -4,12 +4,15 @@
 \alias{athena_connect}
 \title{Make a JDBC connection to Athena}
 \usage{
-athena_connect(default_schema, simple = FALSE)
+athena_connect(default_schema = "default", region = "us-east-1",
+  simple = FALSE)
 }
 \arguments{
-\item{default_schema}{def sch}
+\item{default_schema}{def schema}
 
-\item{simple}{simple}
+\item{region}{AWS region (Ref: \url{http://docs.aws.amazon.com/general/latest/gr/rande.html#athena})}
+
+\item{simple}{pickup id/secret only or use temp token? (this will become more robust)}
 }
 \description{
 Handles the up-front JDBC config
@@ -24,4 +27,7 @@ defined (a good place is \code{~/.Renviron}):
 
 For \code{simple} == \code{FALSE} the expectation is that you're working with a managed
 \code{~/.aws/credentials} file.
+
+There's a high likelihood of params changing in the near term as I work this out, but I'm
+not very keen on parameter-izing things like id/secret.
 }
