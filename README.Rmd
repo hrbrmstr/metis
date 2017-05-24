@@ -11,17 +11,19 @@ Including a lightweight RJDBC shim.
 THIS IS SUPER ALPHA QUALITY. NOTHING TO SEE HERE. MOVE ALONG.
 
 The goal will be to get around enough of the "gotchas" that are preventing raw RJDBC Athena
-connecitons from "just working" with `dplyr` v0.6.0+ and also get around the [`fetchSize` problem](https://www.reddit.com/r/aws/comments/6aq22b/fetchsize_limit/) without having to not use `dbGetQuery()`.
+connections from "just working" with `dplyr` v0.6.0+ and also get around the [`fetchSize` problem](https://www.reddit.com/r/aws/comments/6aq22b/fetchsize_limit/) without having to not use `dbGetQuery()`.
 
 It will also support more than the vanilla id/secret auth mechism (it currently support the default basic auth and temp token auth, the latter via environment variables).
 
-This package includes the `AthenaJDBC41-1.0.1.jar` JAR file out of convenience but that will likely move to a separate package as this gets closer to prime time.
+This package includes the `AthenaJDBC41-1.1.0.jar` JAR file out of convenience but that will likely move to a separate package as this gets closer to prime time.
 
 See the **Usage** section for an example.
 
 The following functions are implemented:
 
 - `athena_connect`:	Make a JDBC connection to Athena (this returns an `AthenaConnection` object which is a super-class of it's RJDBC vanilla counterpart)
+- `read_credentials`:	Use Credentials from .aws/credentials File
+- `use_credentials`:	Use Credentials from .aws/credentials File
 - `Athena`:	AthenaJDBC`
 - `AthenaConnection-class`:	AthenaJDBC
 - `AthenaDriver-class`:	AthenaJDBC
@@ -44,22 +46,23 @@ options(width=120)
 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
 library(metis)
-library(dplyr)
+library(tidyverse)
 
 # current verison
 packageVersion("metis")
 ```
 
-```{r message=FALSE, warning=FALSE, error=FALSE, eval=FALSE}
-ath <- athena_connect("your_schema_name")
+```{r message=FALSE, warning=FALSE, error=FALSE}
+use_credentials("personal")
 
-res <- dbGetQuery(ath, "
-SELECT format_datetime(timestamp, 'yyyy-MM-dd HH:00:00') timestamp,
-        port as field, count(port) cnt_field FROM your_schema_name.your_table_name
-        WHERE CONTAINS(ARRAY['201705'], date)
-        AND port IN (445, 139, 3389)
-        AND timestamp > date '2017-05-01'
-        AND timestamp <= date '2017-05-22'
-GROUP BY format_datetime(timestamp, 'yyyy-MM-dd HH:00:00'), port LIMIT 1000000
-")
+ath <- athena_connect(default_schema = "sampledb", 
+                      s3_staging_dir = "s3://accessible-bucket",
+                      log_path = "/tmp/athena.log",
+                      log_level = "DEBUG")
+
+dbListTables(ath)
+
+dbGetQuery(ath, "SELECT * FROM sampledb.elb_logs LIMIT 10") %>% 
+  type_convert() %>% 
+  glimpse()
 ```

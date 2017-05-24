@@ -7,7 +7,11 @@
 \usage{
 \S4method{dbConnect}{AthenaDriver}(drv,
   provider = "com.amazonaws.athena.jdbc.shaded.com.amazonaws.auth.EnvironmentVariableCredentialsProvider",
-  region = "us-east-1", schema_name = "default", ...)
+  region = "us-east-1", s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"),
+  schema_name = "default", max_error_retries = 10,
+  connection_timeout = 10000, socket_timeout = 10000,
+  retry_base_delay = 100, retry_max_backoff_time = 1000, log_path,
+  log_level, ...)
 }
 \description{
 AthenaJDBC

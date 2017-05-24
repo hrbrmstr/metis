@@ -8,5 +8,21 @@
 #' @import RJDBC
 #' @import DBI
 #' @import dplyr
-#' @import ini
+#' @importFrom aws.signature use_credentials read_credentials
+NULL
+
+
+#' Use Credentials from .aws/credentials File
+#'
+#' @md
+#' @references [aws.signature::use_credentials()] /  [aws.signature::read_credentials()]
+#' @name use_credentials
+#' @rdname use_credentials
+#' @inheritParams aws.signature::use_credentials
+#' @export
+NULL
+
+#' @name read_credentials
+#' @rdname use_credentials
+#' @export
 NULL
