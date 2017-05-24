@@ -8,7 +8,7 @@ setClass("AthenaDriver", representation("JDBCDriver", identifier.quote="characte
 #' @export
 Athena <- function(identifier.quote='`') {
   drv <- JDBC(driverClass="com.amazonaws.athena.jdbc.AthenaDriver",
-              system.file("AthenaJDBC41-1.0.1.jar", package="metis"),
+              system.file("AthenaJDBC41-1.1.0.jar", package="metis"),
               identifier.quote=identifier.quote)
   return(as(drv, "AthenaDriver"))
 }
