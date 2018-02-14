@@ -22,7 +22,7 @@ setMethod(
   "AthenaDriver",
 
   def = function(drv,
-                 provider = "com.amazonaws.athena.jdbc.shaded.com.amazonaws.auth.EnvironmentVariableCredentialsProvider",
+                 provider = "com.amazonaws.athena.jdbc.shaded.com.amazonaws.auth.DefaultAWSCredentialsProviderChain",
                  region = "us-east-1",
                  s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"),
                  schema_name = "default",
