@@ -3,11 +3,13 @@
 #' Including a lightweight RJDBC shim.
 #'
 #' @name metis
+#' @encoding UTF-8
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
 #' @import RJDBC
 #' @import DBI
 #' @import dplyr
+#' @importFrom readr type_convert
 #' @importFrom aws.signature use_credentials read_credentials
 NULL
 

@@ -6,13 +6,32 @@
 \title{AthenaJDBC}
 \usage{
 \S4method{dbConnect}{AthenaDriver}(drv,
-  provider = "com.amazonaws.athena.jdbc.shaded.com.amazonaws.auth.EnvironmentVariableCredentialsProvider",
+  provider = "com.amazonaws.athena.jdbc.shaded.com.amazonaws.auth.DefaultAWSCredentialsProviderChain",
   region = "us-east-1", s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"),
   schema_name = "default", max_error_retries = 10,
   connection_timeout = 10000, socket_timeout = 10000,
   retry_base_delay = 100, retry_max_backoff_time = 1000, log_path,
   log_level, ...)
 }
+\arguments{
+\item{provider}{JDBC auth provider (ideally leave default)}
+
+\item{region}{AWS region the Athena tables are in}
+
+\item{s3_staging_dir}{A write-able bucket on S3 that you have permissions for}
+
+\item{schema_name}{LOL if only this actually worked with Amazon's hacked Presto driver}
+
+\item{max_error_retries, connection_timeout, socket_timeout, retry_base_delay, retry_max_backoff_time}{technical connection info that you should only muck with if you know what you're doing.}
+
+\item{log_path, log_level}{The Athena JDBC driver can (shockingly) provide a decent bit
+of data in logs. Set this to a temporary directory or somethign log4j can use.}
+
+\item{...}{unused}
+}
 \description{
 AthenaJDBC
+}
+\references{
+<https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html>
 }

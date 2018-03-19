@@ -1,38 +1,58 @@
 ---
 output: rmarkdown::github_document
 ---
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Winged_goddess_Louvre_F32.jpg/300px-Winged_goddess_Louvre_F32.jpg)
 
-[`metis`](https://en.wikipedia.org/wiki/Metis_(mythology)) : Helpers for Accessing and Querying Amazon Athena
+# `metis`
+
+Helpers for Accessing and Querying Amazon Athena
 
 Including a lightweight RJDBC shim.
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Winged_goddess_Louvre_F32.jpg/300px-Winged_goddess_Louvre_F32.jpg)
+In Greek mythology, Metis was Athena's "helper".
 
-THIS IS SUPER ALPHA QUALITY. NOTHING TO SEE HERE. MOVE ALONG.
+## Description
+
+Still fairly beta-quality level but getting there.
 
 The goal will be to get around enough of the "gotchas" that are preventing raw RJDBC Athena
 connections from "just working" with `dplyr` v0.6.0+ and also get around the [`fetchSize` problem](https://www.reddit.com/r/aws/comments/6aq22b/fetchsize_limit/) without having to not use `dbGetQuery()`.
 
-It will also support more than the vanilla id/secret auth mechism (it currently support the default basic auth and temp token auth, the latter via environment variables).
-
-This package includes the `AthenaJDBC41-1.1.0.jar` JAR file out of convenience but that will likely move to a separate package as this gets closer to prime time.
+The `AthenaJDBC41-1.1.0.jar` JAR file is included out of convenience but that will likely move to a separate package as this gets closer to prime time if this goes on CRAN.
 
 See the **Usage** section for an example.
 
+## What's Inside The Tin?
+
 The following functions are implemented:
 
-- `athena_connect`:	Make a JDBC connection to Athena (this returns an `AthenaConnection` object which is a super-class of it's RJDBC vanilla counterpart)
-- `read_credentials`:	Use Credentials from .aws/credentials File
-- `use_credentials`:	Use Credentials from .aws/credentials File
-- `Athena`:	AthenaJDBC`
+Easy-interface connection helper:
+
+- `athena_connect`	Make a JDBC connection to Athena
+
+Custom JDBC Classes:
+
+- `Athena`:	AthenaJDBC (make a new Athena con obj)
 - `AthenaConnection-class`:	AthenaJDBC
 - `AthenaDriver-class`:	AthenaJDBC
 - `AthenaResult-class`:	AthenaJDBC
+
+Custom JDBC Class Methods:
+
 - `dbConnect-method`:	AthenaJDBC
+- `dbExistsTable-method`:	AthenaJDBC
 - `dbGetQuery-method`:	AthenaJDBC
+- `dbListFields-method`:	AthenaJDBC
+- `dbListTables-method`:	AthenaJDBC
+- `dbReadTable-method`:	AthenaJDBC
 - `dbSendQuery-method`:	AthenaJDBC
 
-### Installation
+Pulled in from other `cloudyr` pkgs: 
+
+- `read_credentials`	Use Credentials from .aws/credentials File
+- `use_credentials`	Use Credentials from .aws/credentials File
+
+## Installation
 
 ```{r eval=FALSE}
 devtools::install_github("hrbrmstr/metis")
@@ -42,7 +62,7 @@ devtools::install_github("hrbrmstr/metis")
 options(width=120)
 ```
 
-### Usage
+## Usage
 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
 library(metis)
@@ -53,16 +73,26 @@ packageVersion("metis")
 ```
 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
-use_credentials("personal")
+use_credentials("default")
 
-ath <- athena_connect(default_schema = "sampledb", 
-                      s3_staging_dir = "s3://accessible-bucket",
-                      log_path = "/tmp/athena.log",
-                      log_level = "DEBUG")
+athena_connect(
+  default_schema = "sampledb", 
+  s3_staging_dir = "s3://accessible-bucket",
+  log_path = "/tmp/athena.log",
+  log_level = "DEBUG"
+) -> ath
 
-dbListTables(ath)
+dbListTables(ath, schema="sampledb")
+
+dbExistsTable(ath, "elb_logs", schema="sampledb")
+
+dbListFields(ath, "elb_logs", "sampledb")
 
 dbGetQuery(ath, "SELECT * FROM sampledb.elb_logs LIMIT 10") %>% 
   type_convert() %>% 
   glimpse()
 ```
+
+## Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
