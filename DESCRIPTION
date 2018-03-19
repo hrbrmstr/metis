@@ -23,5 +23,6 @@ Depends:
 Imports:
     DBI,
     dplyr,
+    readr,
     aws.signature
 RoxygenNote: 6.0.1.9000
