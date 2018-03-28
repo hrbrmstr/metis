@@ -108,6 +108,7 @@ setMethod(
 #' @param conn Athena connection
 #' @param statement SQL statement
 #' @param ... unused
+#' @importFrom rJava .jcall
 #' @export
 setMethod(
 
