@@ -6,7 +6,7 @@ Date: 2018-03-19
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0001-5670-2640")),
-    person("Zachary, "Kurtz", email="zdkurtz@gmail.com", role = "ctb")
+    person("Zachary", "Kurtz", email="zdkurtz@gmail.com", role = "ctb")
   )
 Maintainer: Bob Rudis <bob@rud.is>
 Encoding: UTF-8
