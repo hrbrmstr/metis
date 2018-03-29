@@ -4,12 +4,13 @@ Title: Helpers for Accessing and Querying Amazon Athena
 Version: 0.2.0
 Date: 2018-03-19
 Authors@R: c(
-    person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 
-    comment = c(ORCID = "0000-0001-5670-2640"))
+    person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0001-5670-2640")),
+    person("Zachary, "Kurtz", email="zdkurtz@gmail.com", role = "ctb")
   )
 Maintainer: Bob Rudis <bob@rud.is>
-Encoding: UTF-8 
-Description: Helpers for Accessing and Querying Amazon Athena. Including a 
+Encoding: UTF-8
+Description: Helpers for Accessing and Querying Amazon Athena. Including a
     lightweight RJDBC shim.
 URL: https://github.com/hrbrmstr/metis
 BugReports: https://github.com/hrbrmstr/metis/issues
@@ -21,6 +22,7 @@ Depends:
     R (>= 3.2.0),
     RJDBC
 Imports:
+    rJava,
     DBI,
     dplyr,
     readr,
