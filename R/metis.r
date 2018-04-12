@@ -44,17 +44,19 @@ athena_connect <- function(default_schema = "default",
   log_level <- match.arg(log_level, c("INFO", "DEBUG", "WARN", "ERROR", "ALL", "OFF", "FATAL", "TRACE"))
 
   # if (!simple) {
-  con <- dbConnect(athena_jdbc,
-                   schema_name = default_schema,
-                   region = region,
-                   s3_staging_dir = s3_staging_dir,
-                   max_error_retries = max_error_retries,
-                   connection_timeout = connection_timeout,
-                   socket_timeout = socket_timeout,
-                   retry_base_delay = retry_base_delay,
-                   retry_max_backoff_time = retry_max_backoff_time,
-                   log_path = log_path,
-                   log_level = log_level)
+  dbConnect(
+    athena_jdbc,
+    schema_name = default_schema,
+    region = region,
+    s3_staging_dir = s3_staging_dir,
+    max_error_retries = max_error_retries,
+    connection_timeout = connection_timeout,
+    socket_timeout = socket_timeout,
+    retry_base_delay = retry_base_delay,
+    retry_max_backoff_time = retry_max_backoff_time,
+    log_path = log_path,
+    log_level = log_level
+  ) -> con
   # } else {
   #   con <- dbConnect(athena_jdbc, provider = NULL, schema_name = default_schema, region = region,
   #                    s3_staging_dir = s3_staging_dir, log_path = log_path, log_level = log_level)

@@ -4,18 +4,24 @@
 setClass(
 
   "AthenaDriver",
-  representation("JDBCDriver", identifier.quote="character", jdrv="jobjRef")
+  representation(
+    "JDBCDriver",
+    identifier.quote = "character",
+    jdrv = "jobjRef"
+  )
 
 )
 
 #' AthenaJDBC
 #'
 #' @export
-Athena <- function(identifier.quote='`') {
+Athena <- function(identifier.quote = '`') {
 
-  drv <- JDBC(driverClass="com.amazonaws.athena.jdbc.AthenaDriver",
-              system.file("AthenaJDBC41-1.1.0.jar", package="metis"),
-              identifier.quote=identifier.quote)
+  JDBC(
+    driverClass = "com.amazonaws.athena.jdbc.AthenaDriver",
+    system.file("java", "AthenaJDBC41-1.1.0.jar", package = "metis"),
+    identifier.quote = identifier.quote
+  ) -> drv
 
   return(as(drv, "AthenaDriver"))
 
@@ -57,18 +63,21 @@ setMethod(
       'jdbc:awsathena://athena.%s.amazonaws.com:443/%s', region, schema_name
     )
 
-    jc <- callNextMethod(drv, conn_string,
-                         s3_staging_dir = s3_staging_dir,
-                         schema_name = schema_name,
-                         max_error_retries = max_error_retries,
-                         connection_timeout = connection_timeout,
-                         socket_timeout = socket_timeout,
-                         retry_base_delay = retry_base_delay,
-                         retry_max_backoff_time = retry_max_backoff_time,
-                         log_path = log_path,
-                         log_level = log_level,
-                         aws_credentials_provider_class = provider,
-                         ...)
+    callNextMethod(
+      drv,
+      conn_string,
+      s3_staging_dir = s3_staging_dir,
+      schema_name = schema_name,
+      max_error_retries = max_error_retries,
+      connection_timeout = connection_timeout,
+      socket_timeout = socket_timeout,
+      retry_base_delay = retry_base_delay,
+      retry_max_backoff_time = retry_max_backoff_time,
+      log_path = log_path,
+      log_level = log_level,
+      aws_credentials_provider_class = provider,
+      ...
+    ) -> jc
 
     return(as(jc, "AthenaConnection"))
 
@@ -97,7 +106,7 @@ setMethod(
   "dbSendQuery",
   signature(conn="AthenaConnection", statement="character"),
 
-  def = function(conn, statement, ...) {
+  definition = function(conn, statement, ...) {
     return(as(callNextMethod(), "AthenaResult"))
   }
 
@@ -115,7 +124,7 @@ setMethod(
   "dbGetQuery",
   signature(conn="AthenaConnection", statement="character"),
 
-  def = function(conn, statement, type_convert=FALSE, ...) {
+  definition = function(conn, statement, type_convert=FALSE, ...) {
     r <- dbSendQuery(conn, statement, ...)
     on.exit(.jcall(r@stat, "V", "close"))
     res <- dplyr::tbl_df(fetch(r, -1, block=1000))
@@ -136,7 +145,7 @@ setMethod(
   "dbListTables",
   signature(conn="AthenaConnection"),
 
-  def = function(conn, pattern='*', schema, ...) {
+  definition = function(conn, pattern='*', schema, ...) {
 
     if (missing(pattern)) {
       dbGetQuery(
@@ -165,7 +174,7 @@ setMethod(
   "dbExistsTable",
   signature(conn="AthenaConnection", name="character"),
 
-  def = function(conn, name, schema, ...) {
+  definition = function(conn, name, schema, ...) {
     length(dbListTables(conn, schema=schema, pattern=name)) > 0
   }
 
@@ -183,7 +192,7 @@ setMethod(
   "dbListFields",
   signature(conn="AthenaConnection", name="character"),
 
-  def = function(conn, name, schema, ...) {
+  definition = function(conn, name, schema, ...) {
     query <- sprintf("SELECT * FROM %s.%s LIMIT 1", schema, name)
     res <- dbGetQuery(conn, query)
     colnames(res)
@@ -203,7 +212,7 @@ setMethod(
   "dbReadTable",
   signature(conn="AthenaConnection", name="character"),
 
-  def = function(conn, name, schema, ...) {
+  definition = function(conn, name, schema, ...) {
     query <- sprintf("SELECT * FROM %s.%s LIMIT 1", schema, dbQuoteString(conn, name))
     dbGetQuery(conn, query)
   }

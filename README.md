@@ -52,8 +52,8 @@ Custom JDBC Class Methods:
 
 Pulled in from other `cloudyr` pkgs:
 
-  - `read_credentials` Use Credentials from .aws/credentials File
-  - `use_credentials` Use Credentials from .aws/credentials File
+  - `read_credentials`: Use Credentials from .aws/credentials File
+  - `use_credentials`: Use Credentials from .aws/credentials File
 
 ## Installation
 

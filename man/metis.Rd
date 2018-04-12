@@ -7,7 +7,9 @@
 \alias{metis-package}
 \title{Helpers for Accessing and Querying Amazon Athena}
 \description{
-Including a lightweight RJDBC shim.
+Methods are provides to connect to 'Amazon' 'Athena', lookup schemas/tables,
+perform queries and retrieve query results. A lightweight 'RJDBC' implementation
+is included along with an interface to the 'AWS' command-line utility.
 }
 \author{
 Bob Rudis (bob@rud.is)

@@ -1,6 +1,8 @@
 #' Helpers for Accessing and Querying Amazon Athena
 #'
-#' Including a lightweight RJDBC shim.
+#' Methods are provides to connect to 'Amazon' 'Athena', lookup schemas/tables,
+#' perform queries and retrieve query results. A lightweight 'RJDBC' implementation
+#' is included along with an interface to the 'AWS' command-line utility.
 #'
 #' @name metis
 #' @encoding UTF-8
@@ -9,7 +11,10 @@
 #' @import RJDBC
 #' @import DBI
 #' @import dplyr
+#' @importFrom jsonlite fromJSON
 #' @importFrom readr type_convert
+#' @importFrom uuid UUIDgenerate
+#' @importFrom sys exec_internal
 #' @importFrom aws.signature use_credentials read_credentials
 NULL
 

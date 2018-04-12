@@ -5,13 +5,14 @@ Version: 0.2.0
 Date: 2018-03-19
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"),
-    comment = c(ORCID = "0000-0001-5670-2640")),
-    person("Zachary, "Kurtz", email="zdkurtz@gmail.com", role = "ctb")
+           comment = c(ORCID = "0000-0001-5670-2640")),
+    person("Zachary", "Kurtz", email = "zdkurtz@gmail.com", role = "ctb")
   )
 Maintainer: Bob Rudis <bob@rud.is>
 Encoding: UTF-8
-Description: Helpers for Accessing and Querying Amazon Athena. Including a
-    lightweight RJDBC shim.
+Description: Methods are provides to connect to 'Amazon' 'Athena', lookup schemas/tables,
+    perform queries and retrieve query results. A lightweight 'RJDBC' implementation 
+    is included along with an interface to the 'AWS' command-line utility.
 URL: https://github.com/hrbrmstr/metis
 BugReports: https://github.com/hrbrmstr/metis/issues
 License: AGPL
@@ -26,5 +27,8 @@ Imports:
     DBI,
     dplyr,
     readr,
-    aws.signature
+    aws.signature,
+    uuid,
+    sys,
+    jsonlite
 RoxygenNote: 6.0.1.9000
