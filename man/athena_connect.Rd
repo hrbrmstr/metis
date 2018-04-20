@@ -7,10 +7,8 @@
 athena_connect(default_schema = "default", region = c("us-east-1",
   "us-east-2", "us-west-2"),
   s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"), max_error_retries = 10,
-  connection_timeout = 10000, socket_timeout = 10000,
-  retry_base_delay = 100, retry_max_backoff_time = 1000, log_path = "",
-  log_level = c("INFO", "DEBUG", "WARN", "ERROR", "ALL", "OFF", "FATAL",
-  "TRACE"))
+  connection_timeout = 10000, socket_timeout = 10000, log_path = "",
+  log_level = c("OFF", "FATAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"))
 }
 \arguments{
 \item{default_schema}{default schema (you'll still need to fully qualify non-default schema table names)}
@@ -25,13 +23,10 @@ athena_connect(default_schema = "default", region = c("us-east-1",
 
 \item{socket_timeout}{the maximum amount of time, in milliseconds, to wait for a socket in order to send data to Athena.}
 
-\item{retry_base_delay}{minimum delay amount, in milliseconds, between retrying attempts to connect Athena.}
-
-\item{retry_max_backoff_time}{maximum delay amount, in milliseconds, between retrying attempts to connect Athena.}
-
 \item{log_path}{local path of the Athena JDBC driver logs. If no log path is provided, then no log files are created.}
 
-\item{log_level}{log level of the Athena JDBC driver logs.}
+\item{log_level}{log level of the Athena JDBC driver logs. Use  names
+"OFF", "FATAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE".}
 }
 \description{
 Handles the up-front JDBC config

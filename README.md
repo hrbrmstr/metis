@@ -1,6 +1,4 @@
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Winged_goddess_Louvre_F32.jpg/300px-Winged_goddess_Louvre_F32.jpg)
-
 # `metis`
 
 Helpers for Accessing and Querying Amazon Athena
@@ -19,9 +17,11 @@ v0.6.0+ and also get around the [`fetchSize`
 problem](https://www.reddit.com/r/aws/comments/6aq22b/fetchsize_limit/)
 without having to not use `dbGetQuery()`.
 
-The `AthenaJDBC41-1.1.0.jar` JAR file is included out of convenience but
+The `AthenaJDBC42_2.0.2.jar` JAR file is included out of convenience but
 that will likely move to a separate package as this gets closer to prime
 time if this goes on CRAN.
+
+NOTE that the updated driver *REQUIRES JDK 1.8+*.
 
 See the **Usage** section for an example.
 
@@ -111,21 +111,21 @@ dbGetQuery(ath, "SELECT * FROM sampledb.elb_logs LIMIT 10") %>%
 
     ## Observations: 10
     ## Variables: 16
-    ## $ timestamp             <dttm> 2014-09-30 01:03:00, 2014-09-30 01:03:01, 2014-09-30 01:03:01, 2014-09-30 01:03:01, ...
+    ## $ timestamp             <dttm> 2014-09-30 00:00:25, 2014-09-30 00:00:57, 2014-09-30 00:01:06, 2014-09-30 00:01:29, ...
     ## $ elbname               <chr> "lb-demo", "lb-demo", "lb-demo", "lb-demo", "lb-demo", "lb-demo", "lb-demo", "lb-demo...
-    ## $ requestip             <chr> "253.90.22.60", "253.51.141.83", "245.59.222.144", "241.35.85.250", "246.245.70.48", ...
-    ## $ requestport           <dbl> 4095, 14668, 29796, 38607, 32750, 10182, 64948, 51279, 13331, 2700
-    ## $ backendip             <chr> "250.133.18.39", "248.214.120.18", "250.38.70.52", "249.45.101.192", "249.28.120.9", ...
-    ## $ backendport           <dbl> 8888, 443, 8899, 8888, 8888, 8888, 8888, 8888, 8888, 8000
-    ## $ requestprocessingtime <dbl> 7.3e-05, 8.9e-05, 4.5e-05, 4.3e-05, 7.6e-05, 7.3e-05, 7.7e-05, 4.6e-05, 4.9e-05, 5.3e-05
-    ## $ backendprocessingtime <dbl> 0.561864, 0.021517, 0.019530, 0.018937, 0.022727, 0.390384, 0.017017, 0.016437, 0.019...
-    ## $ clientresponsetime    <dbl> 9.0e-05, 7.0e-05, 3.0e-05, 3.3e-05, 3.2e-05, 8.4e-05, 5.2e-05, 7.1e-05, 6.9e-05, 5.4e-05
-    ## $ elbresponsecode       <int> 200, 304, 304, 304, 200, 200, 304, 304, 200, 304
-    ## $ backendresponsecode   <int> 200, 200, 403, 200, 200, 400, 200, 200, 200, 200
+    ## $ requestip             <chr> "246.247.182.239", "250.128.76.75", "243.157.244.21", "255.172.234.242", "245.27.105....
+    ## $ requestport           <dbl> 33998, 33998, 33998, 33998, 33998, 33998, 33998, 14346, 33998, 33998
+    ## $ backendip             <chr> "251.173.42.143", "254.201.134.52", "240.175.197.76", "255.212.79.68", "250.102.227.5...
+    ## $ backendport           <dbl> 8888, 8888, 8888, 8888, 8888, 8888, 8888, 8000, 8888, 8888
+    ## $ requestprocessingtime <dbl> 0.000091, 0.000092, 0.000105, 0.000091, 0.000091, 0.000091, 0.000090, 0.000077, 0.000...
+    ## $ backendprocessingtime <dbl> 0.048114, 0.055741, 0.008005, 0.037602, 0.039396, 0.053371, 0.040238, 0.192458, 0.027...
+    ## $ clientresponsetime    <dbl> 6.2e-05, 5.0e-05, 4.8e-05, 6.1e-05, 4.7e-05, 6.2e-05, 5.5e-05, 8.3e-05, 5.7e-05, 8.5e-05
+    ## $ elbresponsecode       <int> 200, 200, 302, 200, 200, 200, 200, 500, 200, 200
+    ## $ backendresponsecode   <int> 404, 200, 200, 200, 200, 200, 400, 500, 200, 200
     ## $ receivedbytes         <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ## $ sentbytes             <dbl> 58402, 0, 0, 0, 152213, 58402, 0, 0, 152213, 0
+    ## $ sentbytes             <dbl> 2, 2, 0, 2, 2, 2, 2, 28098, 2, 2
     ## $ requestverb           <chr> "GET", "GET", "GET", "GET", "GET", "GET", "GET", "GET", "GET", "GET"
-    ## $ url                   <chr> "http://www.abcxyz.com:80/", "http://www.abcxyz.com:80/static/css/hue3.css", "http://...
+    ## $ url                   <chr> "http://www.abcxyz.com:80/jobbrowser/?format=json&state=running&user=l29ezwd", "http:...
     ## $ protocol              <chr> "HTTP/1.1", "HTTP/1.1", "HTTP/1.1", "HTTP/1.1", "HTTP/1.1", "HTTP/1.1", "HTTP/1.1", "...
 
 ## Code of Conduct
