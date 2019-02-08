@@ -6,9 +6,10 @@
 \usage{
 athena_connect(default_schema = "default", region = c("us-east-1",
   "us-east-2", "us-west-2"),
-  s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"), max_error_retries = 10,
-  connection_timeout = 10000, socket_timeout = 10000, log_path = "",
-  log_level = c("OFF", "FATAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"))
+  s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"),
+  max_error_retries = 10, connection_timeout = 10000,
+  socket_timeout = 10000, log_path = "", log_level = c("OFF",
+  "FATAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"))
 }
 \arguments{
 \item{default_schema}{default schema (you'll still need to fully qualify non-default schema table names)}

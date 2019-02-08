@@ -5,7 +5,8 @@
 \alias{dbExistsTable,AthenaConnection,character-method}
 \title{AthenaJDBC}
 \usage{
-\S4method{dbExistsTable}{AthenaConnection,character}(conn, name, schema, ...)
+\S4method{dbExistsTable}{AthenaConnection,character}(conn, name, schema,
+  ...)
 }
 \arguments{
 \item{conn}{Athena connection}

@@ -5,7 +5,8 @@
 \alias{dbListFields,AthenaConnection,character-method}
 \title{AthenaJDBC}
 \usage{
-\S4method{dbListFields}{AthenaConnection,character}(conn, name, schema, ...)
+\S4method{dbListFields}{AthenaConnection,character}(conn, name, schema,
+  ...)
 }
 \arguments{
 \item{conn}{Athena connection}

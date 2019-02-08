@@ -7,10 +7,11 @@
 \usage{
 \S4method{dbConnect}{AthenaDriver}(drv,
   provider = "com.simba.athena.amazonaws.auth.DefaultAWSCredentialsProviderChain",
-  region = "us-east-1", s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"),
+  region = "us-east-1",
+  s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"),
   schema_name = "default", max_error_retries = 10,
-  connection_timeout = 10000, socket_timeout = 10000, log_path, log_level,
-  ...)
+  connection_timeout = 10000, socket_timeout = 10000, log_path,
+  log_level, ...)
 }
 \arguments{
 \item{provider}{JDBC auth provider (ideally leave default)}

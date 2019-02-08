@@ -1,7 +1,7 @@
 Package: metis
 Type: Package
 Title: Helpers for Accessing and Querying Amazon Athena
-Version: 0.3.0
+Version: 0.4.0
 Date: 2018-03-19
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"),
@@ -31,6 +31,6 @@ Imports:
     readr,
     aws.signature,
     uuid,
-    sys,
+    reticulate,
     jsonlite
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1

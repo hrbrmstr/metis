@@ -1,6 +1,11 @@
 0.2.0
 =========
 
+- Added `sql_translate_env.AthenaConnection()`
+
+0.2.0
+=========
+
 - Updated authentication provider to be `com.amazonaws.athena.jdbc.shaded.com.amazonaws.auth.DefaultAWSCredentialsProviderChain` (via @dabdine)
 - Now supports additional DBI/RJDBC methods including: `dbExistsTable()`,
   `dbListFields()`, `dbListTables()`, `dbReadTable()`

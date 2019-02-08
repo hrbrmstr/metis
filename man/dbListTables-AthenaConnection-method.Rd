@@ -5,7 +5,8 @@
 \alias{dbListTables,AthenaConnection-method}
 \title{AthenaJDBC}
 \usage{
-\S4method{dbListTables}{AthenaConnection}(conn, pattern = "*", schema, ...)
+\S4method{dbListTables}{AthenaConnection}(conn, pattern = "*", schema,
+  ...)
 }
 \arguments{
 \item{conn}{Athena connection}
