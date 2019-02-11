@@ -24,7 +24,7 @@ Athena <- function(identifier.quote = '`') {
 
   JDBC(
     driverClass = "com.simba.athena.jdbc.Driver",
-    system.file("java", "AthenaJDBC42_2.0.2.jar", package = "metis"),
+    system.file("java", "AthenaJDBC42_2.0.6.jar", package = "metis"),
     identifier.quote = identifier.quote
   ) -> drv
 
