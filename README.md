@@ -25,6 +25,21 @@ NOTE that the updated driver *REQUIRES JDK 1.8+*.
 
 See the **Usage** section for an example.
 
+## IMPORTANT
+
+Since R 3.5 (I don't remember this happening in R 3.4.x) signals sent from interrupting Athena JDBC calls crash the R interpreter. You need to set the `-Xrs` option to avoid signals being passed on to the JVM owner. That has to be done _before_ `rJava` is loaded so you either need to remember to put it at the top of all scripts _or_ stick this in your local `~/.Rprofile` and/or sitewide `Rprofile`:
+
+```r
+if (!grepl("-Xrs", getOption("java.parameters", ""))) {
+  options(
+    "java.parameters" = paste0(
+      c(getOption("java.parameters", default = NULL), "-Xrs"), 
+      collapse=" "
+    )
+  )
+}
+```
+
 ## What’s Inside The Tin?
 
 The following functions are implemented:
