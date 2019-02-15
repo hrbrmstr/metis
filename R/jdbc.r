@@ -22,7 +22,6 @@
   OTHER = 1111
 )
 
-
 stats::setNames(
   0:6,
   c("OFF", "FATAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE")
@@ -49,7 +48,7 @@ Athena <- function(identifier.quote = '`') {
 
   JDBC(
     driverClass = "com.simba.athena.jdbc.Driver",
-    system.file("java", "AthenaJDBC42_2.0.6.jar", package = "metis"),
+    system.file("java", "AthenaJDBC42_2.0.6.jar", package = "metis.lite"),
     identifier.quote = identifier.quote
   ) -> drv
 
@@ -97,8 +96,6 @@ setMethod(
     )
 
     if (!(log_level %in% 0:6)) log_level <- .ll_trans[log_level]
-
-
 
     callNextMethod(
       drv,
