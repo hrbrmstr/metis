@@ -1,21 +1,17 @@
-Package: metis
+Package: metis.lite
 Type: Package
 Title: Helpers for Accessing and Querying Amazon Athena
-Version: 0.4.0
-Date: 2018-03-19
+Version: 0.3.0
+Date: 2019-02-14
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0001-5670-2640")),
-    person("Derek", "Abdine", comment = "Authentication driver update"),
-    person("Zachary", "Kurtz", email = "zdkurtz@gmail.com", role = "ctb")
+           comment = c(ORCID = "0000-0001-5670-2640"))
   )
 Maintainer: Bob Rudis <bob@rud.is>
 Encoding: UTF-8
 Description: Methods are provides to connect to 'Amazon' 'Athena', lookup schemas/tables,
     perform queries and retrieve query results. A lightweight 'RJDBC' implementation 
     is included along with an interface to the 'AWS' command-line utility.
-URL: https://github.com/hrbrmstr/metis
-BugReports: https://github.com/hrbrmstr/metis/issues
 SystemRequirements: JDK 1.8+
 License: AGPL
 Suggests:
@@ -31,6 +27,5 @@ Imports:
     readr,
     aws.signature,
     uuid,
-    reticulate,
     jsonlite
 RoxygenNote: 6.1.1

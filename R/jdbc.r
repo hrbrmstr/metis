@@ -1,3 +1,28 @@
+.jt <- list(
+  BIT = -7,
+  TINYINT = -6,
+  BIGINT = -5,
+  LONGVARBINARY = -4,
+  VARBINARY = -3,
+  BINARY = -2,
+  LONGVARCHAR = -1,
+  .NULL = 0,
+  CHAR = 1,
+  NUMERIC = 2,
+  DECIMAL = 3,
+  INTEGER = 4,
+  SMALLINT = 5,
+  FLOAT = 6,
+  REAL = 7,
+  DOUBLE = 8,
+  VARCHAR = 12,
+  DATE = 91,
+  TIME = 92,
+  TIMESTAMP = 93,
+  OTHER = 1111
+)
+
+
 stats::setNames(
   0:6,
   c("OFF", "FATAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE")
@@ -137,11 +162,70 @@ setMethod(
   signature(conn="AthenaConnection", statement="character"),
 
   definition = function(conn, statement, type_convert=FALSE, ...) {
+
     r <- dbSendQuery(conn, statement, ...)
+
     on.exit(.jcall(r@stat, "V", "close"))
-    res <- dplyr::tbl_df(fetch(r, -1, block=1000))
-    if (type_convert) res <- readr::type_convert(res)
+
+    structure(
+      list(
+        cols = list(),
+        default = structure(list(), class = c("collector_guess", "collector"))
+      ),
+      class = "col_spec"
+    ) -> l
+
+    cols <- .jcall(r@md, "I", "getColumnCount")
+    nms <- c()
+
+    cts <- rep(0L, cols)
+    for (i in 1:cols) {
+      ct <- .jcall(r@md, "I", "getColumnType", i)
+      if (ct == .jt$CHAR) {
+        l$cols[[i]] <- col_character()
+      } else if (ct == .jt$NUMERIC) {
+        l$cols[[i]] <- col_double()
+      } else if (ct == .jt$DECIMAL) {
+        l$cols[[i]] <- col_double()
+      } else if (ct == .jt$INTEGER) {
+        l$cols[[i]] <- col_integer()
+      } else if (ct == .jt$SMALLINT) {
+        l$cols[[i]] <- col_integer()
+      } else if (ct == .jt$TINYINT) {
+        l$cols[[i]] <- col_integer()
+      } else if (ct == .jt$BIGINT) {
+        l$cols[[i]] <- col_double()
+      } else if (ct == .jt$FLOAT) {
+        l$cols[[i]] <- col_double()
+      } else if (ct == .jt$REAL) {
+        l$cols[[i]] <- col_double()
+      } else if (ct == .jt$DOUBLE) {
+        l$cols[[i]] <- col_double()
+      } else if (ct == .jt$VARCHAR) {
+        l$cols[[i]] <- col_character()
+      } else if (ct == .jt$DATE) {
+        l$cols[[i]] <- col_date()
+      } else if (ct == .jt$TIME) {
+        l$cols[[i]] <- col_time()
+      } else if (ct == .jt$TIMESTAMP) {
+        l$cols[[i]] <- col_datetime()
+      } else if (ct == .jt$BIT) {
+        l$cols[[i]] <- col_logical()
+      } else {
+        l$cols[[i]] <- col_character()
+      }
+      nms[i] <- .jcall(r@md, "S", "getColumnLabel", i)
+    }
+
+    l$cols <- stats::setNames(l$cols, nms)
+
+    res <- fetch(r, -1, block=1000)
+    res <- readr::type_convert(res, col_types = l)
+
+    class(res) <- c("tbl_df", "tbl", "data.frame")
+
     res
+
   }
 
 )

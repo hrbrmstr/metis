@@ -4,7 +4,7 @@
 #' perform queries and retrieve query results. A lightweight 'RJDBC' implementation
 #' is included along with an interface to the 'AWS' command-line utility.
 #'
-#' @name metis
+#' @name metis.lite
 #' @encoding UTF-8
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)

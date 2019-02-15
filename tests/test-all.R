@@ -1,2 +1,2 @@
 library(testthat)
-test_check("metis")
+test_check("metis-lite")

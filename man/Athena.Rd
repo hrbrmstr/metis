@@ -2,10 +2,13 @@
 % Please edit documentation in R/jdbc.r, R/sql_translate_env.R
 \name{Athena}
 \alias{Athena}
+\alias{db_data_type.AthenaConnection}
 \alias{sql_translate_env.AthenaConnection}
 \title{AthenaJDBC}
 \usage{
 Athena(identifier.quote = "`")
+
+\method{db_data_type}{AthenaConnection}(con, fields, ...)
 
 \method{sql_translate_env}{AthenaConnection}(con)
 }

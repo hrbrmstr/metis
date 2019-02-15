@@ -1,6 +1,29 @@
 #' @rdname Athena
 #' @keywords internal
 #' @export
+db_data_type.AthenaConnection <- function(con, fields, ...) {
+  print("\n\n\ndb_data_type\n\n\n")
+  data_type <- function(x) {
+    switch(
+      class(x)[1],
+      integer64 = "BIGINT",
+      logical = "BOOLEAN",
+      integer = "INTEGER",
+      numeric = "DOUBLE",
+      factor =  "CHARACTER",
+      character = "CHARACTER",
+      Date = "DATE",
+      POSIXct = "TIMESTAMP",
+      stop("Can't map type ", paste(class(x), collapse = "/"),
+           " to a supported database type.")
+    )
+  }
+  vapply(fields, data_type, character(1))
+}
+
+#' @rdname Athena
+#' @keywords internal
+#' @export
 sql_translate_env.AthenaConnection <- function(con) {
 
   x <- con
