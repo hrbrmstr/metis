@@ -32,10 +32,7 @@ Since R 3.5 (I don't remember this happening in R 3.4.x) signals sent from inter
 ```r
 if (!grepl("-Xrs", getOption("java.parameters", ""))) {
   options(
-    "java.parameters" = paste0(
-      c(getOption("java.parameters", default = NULL), "-Xrs"), 
-      collapse=" "
-    )
+    "java.parameters" = c(getOption("java.parameters", default = NULL), "-Xrs")
   )
 }
 ```

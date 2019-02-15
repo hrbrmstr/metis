@@ -23,10 +23,7 @@ in your local #' `~/.Rprofile` and/or sitewide `Rprofile`:
 
     if (!grepl("-Xrs", getOption("java.parameters", ""))) {
       options(
-        "java.parameters" = paste0(
-          c(getOption("java.parameters", default = NULL), "-Xrs"),
-          collapse=" "
-        )
+        "java.parameters" = c(getOption("java.parameters", default = NULL), "-Xrs")
       )
     }
 }
