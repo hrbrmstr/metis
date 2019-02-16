@@ -10,16 +10,7 @@
 #'
 #' Since R 3.5 (I don't remember this happening in R 3.4.x) signals sent from interrupting
 #' Athena JDBC calls crash the R #' interpreter. You need to set the `-Xrs` option to avoid
-#' signals being passed on to the JVM owner. That has to be done _#' before_ `rJava` is
-#' loaded so you either need to remember to put it at the top of all scripts _or_ stick this
-#' in your local #' `~/.Rprofile` and/or sitewide `Rprofile`:
-#'
-#'
-#' @section IMPORTANT:
-#'
-#' Since R 3.5 (I don't remember this happening in R 3.4.x) signals sent from interrupting
-#' Athena JDBC calls crash the R #' interpreter. You need to set the `-Xrs` option to avoid
-#' signals being passed on to the JVM owner. That has to be done _#' before_ `rJava` is
+#' signals being passed on to the JVM owner. That has to be done _before_ `rJava` is
 #' loaded so you either need to remember to put it at the top of all scripts _or_ stick this
 #' in your local #' `~/.Rprofile` and/or sitewide `Rprofile`:
 #'
@@ -30,24 +21,19 @@
 #'       )
 #'     }
 #'
+#' @md
 #' @encoding UTF-8
+#' @keywords internal
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
-#' @import RJDBC
-#' @keywords internal
-#' @import DBI
-#' @import dplyr
-#' @importFrom jsonlite fromJSON
-#' @importFrom readr type_convert
-#' @importFrom uuid UUIDgenerate
-#' @importFrom sys exec_internal
-#' @importFrom aws.signature use_credentials read_credentials
+#' @import RJDBC DBI bit64 dbplyr
 NULL
 
 
 #' Use Credentials from .aws/credentials File
 #'
 #' @md
+#' @importFrom aws.signature use_credentials read_credentials
 #' @references [aws.signature::use_credentials()] /  [aws.signature::read_credentials()]
 #' @name use_credentials
 #' @rdname use_credentials

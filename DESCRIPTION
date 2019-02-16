@@ -13,7 +13,7 @@ Description: Methods are provides to connect to 'Amazon' 'Athena', lookup schema
     perform queries and retrieve query results. A lightweight 'RJDBC' implementation 
     is included along with an interface to the 'AWS' command-line utility.
 SystemRequirements: JDK 1.8+
-License: AGPL
+License: MIT + file LICENSE
 Suggests:
     testthat,
     covr
@@ -23,9 +23,7 @@ Depends:
 Imports:
     rJava,
     DBI,
-    dplyr,
-    readr,
-    aws.signature,
-    uuid,
-    jsonlite
+    bit64,
+    dbplyr,
+    aws.signature
 RoxygenNote: 6.1.1

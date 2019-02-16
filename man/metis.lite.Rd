@@ -15,25 +15,15 @@ is included along with an interface to the 'AWS' command-line utility.
 
 
 Since R 3.5 (I don't remember this happening in R 3.4.x) signals sent from interrupting
-Athena JDBC calls crash the R #' interpreter. You need to set the `-Xrs` option to avoid
-signals being passed on to the JVM owner. That has to be done _#' before_ `rJava` is
-loaded so you either need to remember to put it at the top of all scripts _or_ stick this
-in your local #' `~/.Rprofile` and/or sitewide `Rprofile`:
-
-
-
-Since R 3.5 (I don't remember this happening in R 3.4.x) signals sent from interrupting
-Athena JDBC calls crash the R #' interpreter. You need to set the `-Xrs` option to avoid
-signals being passed on to the JVM owner. That has to be done _#' before_ `rJava` is
-loaded so you either need to remember to put it at the top of all scripts _or_ stick this
-in your local #' `~/.Rprofile` and/or sitewide `Rprofile`:
-
-
-    if (!grepl("-Xrs", getOption("java.parameters", ""))) {
-      options(
-        "java.parameters" = c(getOption("java.parameters", default = NULL), "-Xrs")
-      )
-    }
+Athena JDBC calls crash the R #' interpreter. You need to set the \code{-Xrs} option to avoid
+signals being passed on to the JVM owner. That has to be done \emph{before} \code{rJava} is
+loaded so you either need to remember to put it at the top of all scripts \emph{or} stick this
+in your local #' \code{~/.Rprofile} and/or sitewide \code{Rprofile}:\preformatted{if (!grepl("-Xrs", getOption("java.parameters", ""))) {
+  options(
+    "java.parameters" = c(getOption("java.parameters", default = NULL), "-Xrs")
+  )
+}
+}
 }
 
 \author{

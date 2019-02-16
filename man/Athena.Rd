@@ -8,9 +8,9 @@
 \usage{
 Athena(identifier.quote = "`")
 
-\method{db_data_type}{AthenaConnection}(con, fields, ...)
+db_data_type.AthenaConnection(con, fields, ...)
 
-\method{sql_translate_env}{AthenaConnection}(con)
+sql_translate_env.AthenaConnection(con)
 }
 \description{
 AthenaJDBC
