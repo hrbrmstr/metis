@@ -28,3 +28,6 @@ Imports:
     methods,
     aws.signature
 RoxygenNote: 6.1.1
+Remotes:
+    hrbrmstr/metis.jars
+
