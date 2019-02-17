@@ -8,5 +8,6 @@
 ^NOTES\.*html$
 ^\.codecov\.yml$
 ^README_files$
-^doc$
+^docs$
 ^CONDUCT\.md$
+^\.bash_profile$

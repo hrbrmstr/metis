@@ -21,12 +21,13 @@ setClass(
 
 #' AthenaJDBC
 #'
+#' @param identifier.quote how to quote identifiers
 #' @export
 Athena <- function(identifier.quote = '`') {
 
   JDBC(
     driverClass = "com.simba.athena.jdbc.Driver",
-    system.file("java", "AthenaJDBC42_2.0.6.jar", package = "metis.lite"),
+    metis.jars::metis_jar_path(),
     identifier.quote = identifier.quote
   ) -> drv
 
@@ -44,6 +45,7 @@ Athena <- function(identifier.quote = '`') {
 #' - `ComplexTypeColumnLength`: <int> The maximum data length for `ARRAY`, `MAP`, and `STRUCT` columns. Default `65535L`
 #' - `StringColumnLength`: <int> The maximum data length for `STRING` columns. Default `255L`
 #'
+#' @param drv driver
 #' @param provider JDBC auth provider (ideally leave default)
 #' @param region AWS region the Athena tables are in
 #' @param s3_staging_dir A write-able bucket on S3 that you have permissions for
@@ -54,6 +56,7 @@ Athena <- function(identifier.quote = '`') {
 #'     of data in logs. Set this to a temporary directory or something log4j can use. For
 #'     `log_level` use the names ("INFO", "DEBUG", "WARN", "ERROR", "ALL", "OFF", "FATAL", "TRACE") or
 #'     their corresponding integer values 0-6.
+#' @param fetch_size Athena results fetch size
 #' @param ... passed on to the driver. See Details.
 #' @references [Connect with JDBC](https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html);
 #'     [Simba Athena JDBC Driver with SQL Connector Installation and Configuration Guide](https://s3.amazonaws.com/athena-downloads/drivers/JDBC/SimbaAthenaJDBC_2.0.6/docs/Simba+Athena+JDBC+Driver+Install+and+Configuration+Guide.pdf)
@@ -109,6 +112,9 @@ setMethod(
 
 #' AthenaJDBC
 #'
+#' @param jc job ref
+#' @param identifier.quote how to quote identifiers
+#' @param fetch_size Athena results fetch size
 #' @export
 setClass("AthenaConnection", representation("JDBCConnection", jc="jobjRef", identifier.quote="character", fetch_size="integer"))
 

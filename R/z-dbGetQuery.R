@@ -24,26 +24,33 @@ list(
   "1111" = as.character # OTHER
 ) -> .jdbc_converters
 
+#' Retrieve connection/driver/database metadata
+#'
+#' @param dbObj driver/connection
+#' @param ... unused
 #' @export
 #' @keywords internal
 setMethod("dbGetInfo", "AthenaDriver", def=function(dbObj, ...)
   list(
     name = "AthenaJDBC",
-    driver_version = list.files(system.file("java", package="metis.lite"), "jar$")[1],
-    package_version = utils::packageVersion("metis.lite")
+    driver_version = metis.jars::simba_driver_version(),
+    package_version = utils::packageVersion("metis.jars")
   )
 )
 
+#' Retrieve connection/driver//database metadata
+#'
+#' @param dbObj driver/connection
+#' @param ... unused
 #' @export
 #' @keywords internal
 setMethod("dbGetInfo", "AthenaConnection", def=function(dbObj, ...)
   list(
     name = "AthenaJDBC",
     driver_version = list.files(system.file("java", package="metis.lite"), "jar$")[1],
-    package_version = utils::packageVersion("metis.lite")
+    package_version = utils::packageVersion("metis")
   )
 )
-
 
 #' Fetch records from a previously executed query
 #'
@@ -56,6 +63,7 @@ setMethod("dbGetInfo", "AthenaConnection", def=function(dbObj, ...)
 #'   or `n = Inf`
 #'   to retrieve all pending records.  Some implementations may recognize other
 #'   special values.
+#' @param block clock size
 #' @param ... Other arguments passed on to methods.
 #' @export
 setMethod(

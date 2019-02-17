@@ -14,6 +14,8 @@
   socket_timeout = 10000, log_path = "", log_level = 0, ...)
 }
 \arguments{
+\item{drv}{driver}
+
 \item{provider}{JDBC auth provider (ideally leave default)}
 
 \item{region}{AWS region the Athena tables are in}
@@ -21,6 +23,8 @@
 \item{s3_staging_dir}{A write-able bucket on S3 that you have permissions for}
 
 \item{schema_name}{LOL if only this actually worked with Amazon's hacked Presto driver}
+
+\item{fetch_size}{Athena results fetch size}
 
 \item{max_error_retries, connection_timeout, socket_timeout}{technical connection info that you should only muck with if you know what you're doing.}
 

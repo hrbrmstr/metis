@@ -16,6 +16,8 @@ or `n = Inf`
 to retrieve all pending records.  Some implementations may recognize other
 special values.}
 
+\item{block}{clock size}
+
 \item{...}{Other arguments passed on to methods.}
 }
 \description{
