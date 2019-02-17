@@ -5,8 +5,7 @@
 \alias{dbGetQuery,AthenaConnection,character-method}
 \title{AthenaJDBC}
 \usage{
-\S4method{dbGetQuery}{AthenaConnection,character}(conn, statement,
-  type_convert = FALSE, ...)
+\S4method{dbGetQuery}{AthenaConnection,character}(conn, statement, ...)
 }
 \arguments{
 \item{conn}{Athena connection}

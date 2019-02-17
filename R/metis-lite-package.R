@@ -1,4 +1,4 @@
-#' Helpers for Accessing and Querying Amazon Athena
+#' Access and Query Amazon Athena via DBI/JDBC
 #'
 #' Methods are provides to connect to 'Amazon' 'Athena', lookup schemas/tables,
 #' perform queries and retrieve query results. A lightweight 'RJDBC' implementation
@@ -27,6 +27,7 @@
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
 #' @import RJDBC DBI bit64 dbplyr
+#' @references [Simba Athena JDBC Driver with SQL Connector Installation and Configuration Guide](https://s3.amazonaws.com/athena-downloads/drivers/JDBC/SimbaAthenaJDBC_2.0.6/docs/Simba+Athena+JDBC+Driver+Install+and+Configuration+Guide.pdf)
 NULL
 
 

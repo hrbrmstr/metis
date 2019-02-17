@@ -2,14 +2,14 @@
 % Please edit documentation in R/metis.r
 \name{athena_connect}
 \alias{athena_connect}
-\title{Make a JDBC connection to Athena}
+\title{Simplified Athena JDBC connection helper}
 \usage{
 athena_connect(default_schema = "default", region = c("us-east-1",
   "us-east-2", "us-west-2"),
   s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"),
   max_error_retries = 10, connection_timeout = 10000,
   socket_timeout = 10000, log_path = "", log_level = c("OFF",
-  "FATAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"))
+  "FATAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE"), ...)
 }
 \arguments{
 \item{default_schema}{default schema (you'll still need to fully qualify non-default schema table names)}
@@ -28,6 +28,8 @@ athena_connect(default_schema = "default", region = c("us-east-1",
 
 \item{log_level}{log level of the Athena JDBC driver logs. Use  names
 "OFF", "FATAL", "ERROR", "WARNING", "INFO", "DEBUG", "TRACE".}
+
+\item{...}{passed on to the driver}
 }
 \description{
 Handles the up-front JDBC config
@@ -36,14 +38,20 @@ Handles the up-front JDBC config
 \dontrun{
 use_credentials("personal")
 
-ath <- athena_connect(default_schema = "sampledb",
-                      s3_staging_dir = "s3://accessible-bucket",
-                      log_path = "/tmp/athena.log",
-                      log_level = "DEBUG")
+athena_connect(
+  default_schema = "sampledb",
+  s3_staging_dir = "s3://accessible-bucket",
+  log_path = "/tmp/athena.log",
+  log_level = "DEBUG"
+) -> ath
 
 dbListTables(ath)
 
 dbGetQuery(ath, "SELECT * FROM sampledb.elb_logs LIMIT 1")
 
 }
+}
+\references{
+\href{https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html}{Connect with JDBC};
+\href{https://s3.amazonaws.com/athena-downloads/drivers/JDBC/SimbaAthenaJDBC_2.0.6/docs/Simba+Athena+JDBC+Driver+Install+and+Configuration+Guide.pdf}{Simba Athena JDBC Driver with SQL Connector Installation and Configuration Guide}
 }

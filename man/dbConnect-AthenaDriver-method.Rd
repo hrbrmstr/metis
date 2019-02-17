@@ -9,9 +9,9 @@
   provider = "com.simba.athena.amazonaws.auth.DefaultAWSCredentialsProviderChain",
   region = "us-east-1",
   s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"),
-  schema_name = "default", max_error_retries = 10,
-  connection_timeout = 10000, socket_timeout = 10000, log_path = "",
-  log_level = 0, ...)
+  schema_name = "default", fetch_size = 1000L,
+  max_error_retries = 10, connection_timeout = 10000,
+  socket_timeout = 10000, log_path = "", log_level = 0, ...)
 }
 \arguments{
 \item{provider}{JDBC auth provider (ideally leave default)}
@@ -29,11 +29,20 @@ of data in logs. Set this to a temporary directory or something log4j can use. F
 `log_level` use the names ("INFO", "DEBUG", "WARN", "ERROR", "ALL", "OFF", "FATAL", "TRACE") or
 their corresponding integer values 0-6.}
 
-\item{...}{unused}
+\item{...}{passed on to the driver. See Details.}
 }
 \description{
-AthenaJDBC
+Connect to Athena
 }
+\section{Driver Configuration Options}{
+
+
+- `BinaryColumnLength`: <int> The maximum data length for `BINARY` columns. Default `32767L`
+- `ComplexTypeColumnLength`: <int> The maximum data length for `ARRAY`, `MAP`, and `STRUCT` columns. Default `65535L`
+- `StringColumnLength`: <int> The maximum data length for `STRING` columns. Default `255L`
+}
+
 \references{
-<https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html>
+[Connect with JDBC](https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html);
+    [Simba Athena JDBC Driver with SQL Connector Installation and Configuration Guide](https://s3.amazonaws.com/athena-downloads/drivers/JDBC/SimbaAthenaJDBC_2.0.6/docs/Simba+Athena+JDBC+Driver+Install+and+Configuration+Guide.pdf)
 }

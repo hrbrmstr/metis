@@ -1,6 +1,6 @@
 Package: metis.lite
 Type: Package
-Title: Helpers for Accessing and Querying Amazon Athena
+Title: Access and Query Amazon Athena via DBI/JDBC
 Version: 0.3.0
 Date: 2019-02-14
 Authors@R: c(
@@ -11,7 +11,7 @@ Maintainer: Bob Rudis <bob@rud.is>
 Encoding: UTF-8
 Description: Methods are provides to connect to 'Amazon' 'Athena', lookup schemas/tables,
     perform queries and retrieve query results. A lightweight 'RJDBC' implementation 
-    is included along with an interface to the 'AWS' command-line utility.
+    is included along with additional helpers for 'dplyr'/'dplyr' suppprt.
 SystemRequirements: JDK 1.8+
 License: MIT + file LICENSE
 Suggests:

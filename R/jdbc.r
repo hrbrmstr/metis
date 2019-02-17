@@ -36,6 +36,14 @@ Athena <- function(identifier.quote = '`') {
 
 #' AthenaJDBC
 #'
+#' Connect to Athena
+#'
+#' @section Driver Configuration Options:
+#'
+#' - `BinaryColumnLength`: <int> The maximum data length for `BINARY` columns. Default `32767L`
+#' - `ComplexTypeColumnLength`: <int> The maximum data length for `ARRAY`, `MAP`, and `STRUCT` columns. Default `65535L`
+#' - `StringColumnLength`: <int> The maximum data length for `STRING` columns. Default `255L`
+#'
 #' @param provider JDBC auth provider (ideally leave default)
 #' @param region AWS region the Athena tables are in
 #' @param s3_staging_dir A write-able bucket on S3 that you have permissions for
@@ -46,8 +54,9 @@ Athena <- function(identifier.quote = '`') {
 #'     of data in logs. Set this to a temporary directory or something log4j can use. For
 #'     `log_level` use the names ("INFO", "DEBUG", "WARN", "ERROR", "ALL", "OFF", "FATAL", "TRACE") or
 #'     their corresponding integer values 0-6.
-#' @param ... unused
-#' @references <https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html>
+#' @param ... passed on to the driver. See Details.
+#' @references [Connect with JDBC](https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html);
+#'     [Simba Athena JDBC Driver with SQL Connector Installation and Configuration Guide](https://s3.amazonaws.com/athena-downloads/drivers/JDBC/SimbaAthenaJDBC_2.0.6/docs/Simba+Athena+JDBC+Driver+Install+and+Configuration+Guide.pdf)
 #' @export
 setMethod(
 
@@ -60,6 +69,7 @@ setMethod(
     region = "us-east-1",
     s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"),
     schema_name = "default",
+    fetch_size = 1000L,
     max_error_retries = 10,
     connection_timeout = 10000,
     socket_timeout = 10000,
@@ -87,7 +97,11 @@ setMethod(
       ...
     ) -> jc
 
-    return(as(jc, "AthenaConnection"))
+
+    jc <- as(jc, "AthenaConnection")
+    jc@fetch_size <- as.integer(fetch_size)
+
+    return(jc)
 
   }
 
@@ -96,7 +110,9 @@ setMethod(
 #' AthenaJDBC
 #'
 #' @export
-setClass("AthenaConnection", contains = "JDBCConnection")
+setClass("AthenaConnection", representation("JDBCConnection", jc="jobjRef", identifier.quote="character", fetch_size="integer"))
+
+# setClass("AthenaConnection", contains = "JDBCConnection")
 
 #' AthenaJDBC
 #'

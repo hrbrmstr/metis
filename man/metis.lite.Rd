@@ -5,7 +5,7 @@
 \name{metis.lite}
 \alias{metis.lite}
 \alias{metis.lite-package}
-\title{Helpers for Accessing and Querying Amazon Athena}
+\title{Access and Query Amazon Athena via DBI/JDBC}
 \description{
 Methods are provides to connect to 'Amazon' 'Athena', lookup schemas/tables,
 perform queries and retrieve query results. A lightweight 'RJDBC' implementation
@@ -26,6 +26,9 @@ in your local #' \code{~/.Rprofile} and/or sitewide \code{Rprofile}:\preformatte
 }
 }
 
+\references{
+\href{https://s3.amazonaws.com/athena-downloads/drivers/JDBC/SimbaAthenaJDBC_2.0.6/docs/Simba+Athena+JDBC+Driver+Install+and+Configuration+Guide.pdf}{Simba Athena JDBC Driver with SQL Connector Installation and Configuration Guide}
+}
 \author{
 Bob Rudis (bob@rud.is)
 }
