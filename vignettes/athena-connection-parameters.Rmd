@@ -1,0 +1,102 @@
+---
+title: "Athena Connection Parameters"
+author: "Bob Rudis"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Athena Connection Parameters}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r echo=FALSE}
+structure(list(property = c("AwsCredentialsProviderArguments", 
+"AwsCredentialsProviderClass", "AwsRegion", "BinaryColumnLength", 
+"ComplexTypeColumnLength", "ConnectionTest", "ConnectTimeout", 
+"IdP_Host", "IdP_Port", "LogLevel", "LogPath", "MaxCatalogNameLength", 
+"MaxColumnNameLength", "MaxErrorRetry", "MaxQueryExecutionPollingInterval", 
+"MaxSchemaNameLength", "MaxTableNameLength", "MetadataRetrievalMethod", 
+"NonProxyHosts", "Password", "PreemptiveBasicProxyAuth", "preferred_role", 
+"Profile", "ProxyDomain", "ProxyHost", "ProxyPort", "ProxyPWD", 
+"ProxyUID", "ProxyWorkstation", "RowsToFetchPerBlock", "S3OutputEncKMSKey", 
+"S3OutputEncOption", "S3OutputLocation", "Schema", "SocketTimeout", 
+"SSL_Insecure", "StringColumnLength", "UseArraySupport", "UseAwsLogger", 
+"User", "UseResultsetStreaming"), default = c("None", "None", 
+"None", "32767", "65535", "1", "10", "None", "443", "0", "The current working directory.", 
+"0", "0", "10", "100", "256", "0", "Auto", "None", "None", "0", 
+"None", "None", "None", "None", "None", "None", "None", "None", 
+"10000 for result set streaming, 1000 for pagination", "None", 
+"None", "None", "\"default\"", "50", "\"false\"", "255", "1", 
+"0", "None", "1"), type = c("String", "String", "String", "Integer", 
+"Integer", "Integer", "Integer", "String", "String", "Integer", 
+"String", "Integer", "Integer", "Integer", "Integer", "Integer", 
+"Integer", "String", "String", "String", "Integer", "String", 
+"String", "String", "String", "Integer", "String", "String", 
+"String", "Integer", "String", "String", "String", "String", 
+"Integer", "String", "Integer", "Integer", "Integer", "String", 
+"Integer"), required = c("Yes, if User and Password are not provided, and if AwsCredentialsProviderClass does not have a default constructor.", 
+"Yes,if User and Password are not provided, or if you are authenticating through AD FS.", 
+"Yes", "No", "No", "No", "No", "Yes, if authenticating through AD FS.", 
+"No", "No", "No", "No", "No", "No", "No", "No", "No", "No", "No", 
+"Yes, if using IAM credentials or the AD FS provider for authentication.", 
+"No", "No", "No", "No", "No", "No", "Yes, if connecting through a proxy server that requires authentication.", 
+"Yes, if connecting through a proxy server that requires authentication.", 
+"No", "No", "Yes, if using SSE_KMS or CSE_KMS encryption.", "No", 
+"Yes", "No", "No", "No", "No", "No", "No", "Yes, if using IAM credentials or the AD FS provider for authentication.", 
+"No"), info = c("A comma-separated list of String arguments for the constructor of the AwsCredentialsProviderClass.", 
+"If you are authenticating through the AD FS credentials provider, then set this property to the FQCN of the AD FS credentials provider. You can set this property in the connection URL or in an AWS profile. If you are authenticating through a class that implements the AWSCredentialsProvider interface, then set this property to the FQCN of the AWSCredentialsProvider interface.", 
+"The AWS region of the Athena and AWS Glue instance that you want to connect to.", 
+"The maximum data length for BINARY columns.", "The maximum data length for ARRAY, MAP, and STRUCT columns.", 
+"This property determines whether the driver verifies the connection by sending a “SELECT 1” query when establishing a connection with Athena. 1: The driver verifies connection by sending a simple “SELECT 1” query to Athena; 0: The driver does not send any query to Athena to verify the connection.", 
+"The amount of time, in seconds, that the driver waits when establishing a connection before timing out the connection. A value of 0 indicates that the driver never times out the connection.", 
+"The host name of the AD FS service that you use to authenticate the connection. The host name cannot include any slashes (/).", 
+"The number of the port that the AD FS service host uses to listen for requests. The port number to specify may differ depending on the AD FS server configuration. If you are not sure which port to specify, contact your system administrator.", 
+"Use this property to enable or disable logging in the driver and to specify the amount of detail included in log files. When logging is enabled, the driver produces the following log files in the location specified in the LogPath property: 1: An AthenaJDBC_driver.log file that logs driver activity that is not specific to a connection; 2: An AthenaJDBC_connection_[Number].log file for each connection made to the database, where [Number] is a number that distinguishes each log file from the others. This file logs driver activity that is specific to the connection.", 
+"The full path to the folder where the driver saves log files when logging is enabled.", 
+"The maximum number of characters that catalog names can contain. To indicate that there is no maximum length or that the length is unknown, set this option to 0.", 
+"The maximum number of characters that column names can contain. To indicate that there is no maximum length or that the length is unknown, set this option to 0.", 
+"The maximum number of times that the driver resubmits a failed request that can be retried, such as a 5xx error from the Athena server.", 
+"The maximum amount of time, in milliseconds, that the driver waits between attempts when polling the Athena server for query results. You cannot specify an interval that is less than 5ms.", 
+"The maximum number of characters that schema names can contain. To indicate that there is no maximum length or that the length is unknown, set this option to 0.", 
+"The maximum number of characters that table names can contain. To indicate that there is no maximum length or that the length is unknown, set this option to 0.", 
+"This property determines how the metadata would be retrieved from Athena for different JDBC API calls like getTables, getColumns. Following are the valid values: \"Auto\": During connection time driver will automatically determine whether to use AWS Glue or Query to get metadata for the specified Athena region. If AWS Glue is supported in the region and Athena has been upgraded to use AWS Glue, driver will use AWS Glue to get the metadata. If AWS Glue is not supported in the region or Athena hasn’t been upgraded to use AWS Glue, driver will query Athena to get the metadata; \"Glue\": Driver will use AWS Glue to get the metadata regardless of whether AWS Glue is supported or used in the region; \"Query\": Driver will use Query to get the metadata regardless of whether AWS Glue is supported or used in that region.", 
+"A list of hosts that the driver can access without connecting through the proxy server, when a proxy connection is enabled. When specifying multiple hosts, each host must be separated by a vertical bar (|). You can specify patterns using asterisks (*) as wildcard characters.", 
+"If you are using IAM credentials for authentication, then set this property to the secret key provided by your AWS account. If you are authenticating through the AD FS credentials provider, then set this property to the password that you use to access the AD FS server.", 
+"This property specifies whether the driver pre-emptively authenticates against the proxy server using basic authentication, when a proxy connection is enabled. 1: The driver pre-emptively authenticates the connection using basic authentication; 0: The driver does not pre-emptively authenticate the connection using basic authentication.", 
+"However, by default, the driver assumes the first role from the list returned in the SAML response from the identity provider.", 
+"The name of the AWS profile to use, containing any additional connection properties not specified in the connection URL. For example, when configuring the driver to authenticate through AD FS, you can use this property to specify a profile that contains the required AD FS service information. The driver checks the AWS credentials file for the specified profile. The default location for this file is ~/.aws/credentials. You can change this default behavior by setting the AWS_CREDENTIAL_PROFILES_FILE environment variable to the full path and name of a different credentials file. For more information about profiles, see \"Working with AWS Credentials\" in the AWS SDK for Java Developer Guide: https://docs.aws.amazon.com/sdk-for- java/v1/developer-guide/credentials.html.", 
+"The Windows domain name of the server that you want to authenticate through, when authenticating a proxy connection using the NTLM protocol.", 
+"The IP address or host name of your proxy server.", "The listening port of your proxy server.", 
+"The password that you use to access the proxy server.", "The user name that you use to access the proxy server.", 
+"The Windows workstation name of the server that you want to authenticate through, when authenticating a proxy connection using the NTLM protocol.", 
+"The maximum number of rows to fetch per stream if using the result set streaming API. The maximum number of rows to fetch per page if using pagination.", 
+"The KMS key ARN or ID to use when encrypting query results using SSE_KMS or CSE_KMS encryption.", 
+"The encryption protocol that the driver uses to encrypt your query results before storing them on Amazon S3. \"SSE_S3\": The driver uses server-side encryption with an Amazon S3-managed key; \"SSE_KMS\": The driver uses server-side encryption with an AWS KMS-managed key; \"CSE_KMS\": The driver uses client-side encryption with an AWS KMS-managed key.", 
+"The path of the Amazon S3 location where you want to store query results, prefixed by s3://.", 
+"The name of the database schema to use when a schema is not explicitly specified in a query. You can still issue queries on other schemas by explicitly specifying the schema in the query.", 
+"The amount of time, in seconds, that the driver waits for data to be transferred over an established, open connection before timing out the connection. A value of 0 (NOT recommended) indicates that the driver never times out the connection.", 
+"This property indicates whether the server certificate of the AD FS host should be verified.", 
+"The maximum data length for STRING columns.", "This property specifies whether the driver supports getting the ResultSet data as an array.", 
+"This property specifies whether the driver records the log output from any AWS API calls.", 
+"If you are using IAM credentials for authentication, then set this property to the access key provided by your AWS account.", 
+"This property specifies whether the driver uses the AWS result set streaming API for result set fetching."
+)), class = c("spec_tbl_df", "tbl_df", "tbl", "data.frame"), row.names = c(NA, 
+-41L), spec = structure(list(cols = list(property = structure(list(), class = c("collector_character", 
+"collector")), default = structure(list(), class = c("collector_character", 
+"collector")), type = structure(list(), class = c("collector_character", 
+"collector")), required = structure(list(), class = c("collector_character", 
+"collector")), info = structure(list(), class = c("collector_character", 
+"collector"))), default = structure(list(), class = c("collector_guess", 
+"collector")), skip = 1), class = "col_spec")) -> docs
+```
+
+```{r echo=FALSE}
+knitr::kable(docs, "markdown", )
+```

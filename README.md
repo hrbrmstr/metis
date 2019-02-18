@@ -66,14 +66,15 @@ packageVersion("metis")
 library(rJava)
 library(RJDBC)
 library(metis)
-library(magrittr) 
+library(magrittr) # for piping b/c I'm addicted
+```
 
+``` r
 dbConnect(
-  drv = metis.lite::Athena(),
-  schema_name = "sampledb",
-  provider = "com.simba.athena.amazonaws.auth.PropertiesFileCredentialsProvider",
-  AwsCredentialsProviderArguments = path.expand("~/.aws/athenaCredentials.props"),
-  s3_staging_dir = "s3://aws-athena-query-results-569593279821-us-east-1",
+  metis::Athena(),
+  Schema = "sampledb",
+  AwsCredentialsProviderClass = "com.simba.athena.amazonaws.auth.PropertiesFileCredentialsProvider",
+  AwsCredentialsProviderArguments = path.expand("~/.aws/athenaCredentials.props")
 ) -> con
 
 dbListTables(con, schema="sampledb")
@@ -103,21 +104,21 @@ dbGetQuery(con, "SELECT * FROM sampledb.elb_logs LIMIT 10") %>%
 
     ## Observations: 10
     ## Variables: 16
-    ## $ timestamp             <chr> "2014-09-29T03:24:38.169500Z", "2014-09-29T03:25:09.029469Z", "2014-09-29T03:25:39.8676…
+    ## $ timestamp             <chr> "2014-09-27T00:00:25.424956Z", "2014-09-27T00:00:56.439218Z", "2014-09-27T00:01:27.4417…
     ## $ elbname               <chr> "lb-demo", "lb-demo", "lb-demo", "lb-demo", "lb-demo", "lb-demo", "lb-demo", "lb-demo",…
-    ## $ requestip             <chr> "253.89.30.138", "248.64.121.231", "245.21.209.210", "244.77.57.59", "244.185.170.87", …
-    ## $ requestport           <int> 20159, 20159, 20159, 20159, 20159, 20159, 20159, 20159, 20159, 20159
-    ## $ backendip             <chr> "253.89.30.138", "244.77.57.59", "240.105.192.251", "253.89.30.138", "248.64.121.231", …
-    ## $ backendport           <int> 8888, 8888, 8888, 8899, 8888, 8888, 8888, 8888, 8888, 8888
-    ## $ requestprocessingtime <dbl> 7.5e-05, 9.1e-05, 9.0e-05, 9.5e-05, 8.9e-05, 9.3e-05, 8.7e-05, 9.2e-05, 9.0e-05, 9.1e-05
-    ## $ backendprocessingtime <dbl> 0.047465, 0.044693, 0.045687, 0.051089, 0.045445, 0.045845, 0.046027, 0.045039, 0.05010…
-    ## $ clientresponsetime    <dbl> 6.5e-05, 7.2e-05, 6.4e-05, 7.0e-05, 5.4e-05, 6.7e-05, 5.7e-05, 4.6e-05, 8.7e-05, 4.9e-05
+    ## $ requestip             <chr> "241.230.198.83", "252.26.60.51", "250.244.20.109", "247.59.58.167", "254.64.224.54", "…
+    ## $ requestport           <int> 27026, 27026, 27026, 27026, 27026, 27026, 27026, 27026, 27026, 27026
+    ## $ backendip             <chr> "251.192.40.76", "249.89.116.3", "251.111.156.171", "251.139.91.156", "251.111.156.171"…
+    ## $ backendport           <int> 443, 8888, 8888, 8888, 8000, 8888, 8888, 8888, 8888, 8888
+    ## $ requestprocessingtime <dbl> 9.1e-05, 9.4e-05, 8.4e-05, 9.7e-05, 9.1e-05, 9.3e-05, 9.4e-05, 8.3e-05, 9.0e-05, 9.0e-05
+    ## $ backendprocessingtime <dbl> 0.046598, 0.038973, 0.047054, 0.039845, 0.061461, 0.037791, 0.047035, 0.048792, 0.04572…
+    ## $ clientresponsetime    <dbl> 4.9e-05, 4.7e-05, 4.9e-05, 4.9e-05, 4.0e-05, 7.7e-05, 7.5e-05, 7.3e-05, 4.0e-05, 6.7e-05
     ## $ elbresponsecode       <chr> "200", "200", "200", "200", "200", "200", "200", "200", "200", "200"
-    ## $ backendresponsecode   <chr> "200", "200", "400", "200", "404", "200", "403", "404", "200", "200"
+    ## $ backendresponsecode   <chr> "200", "200", "200", "200", "200", "400", "400", "200", "200", "200"
     ## $ receivedbytes         <S3: integer64> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ## $ sentbytes             <S3: integer64> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     ## $ requestverb           <chr> "GET", "GET", "GET", "GET", "GET", "GET", "GET", "GET", "GET", "GET"
-    ## $ url                   <chr> "http://www.abcxyz.com:80/jobbrowser/?format=json&state=running&user=248nnm5", "http://…
+    ## $ url                   <chr> "http://www.abcxyz.com:80/jobbrowser/?format=json&state=running&user=20g578y", "http://…
     ## $ protocol              <chr> "HTTP/1.1", "HTTP/1.1", "HTTP/1.1", "HTTP/1.1", "HTTP/1.1", "HTTP/1.1", "HTTP/1.1", "HT…
 
 ### Check types
@@ -148,7 +149,7 @@ LIMIT 1
     ## Variables: 13
     ## $ achar     <chr> "chr "
     ## $ avarchr   <chr> "varchr"
-    ## $ tsday     <date> 2014-09-26
+    ## $ tsday     <date> 2014-09-29
     ## $ justadbl  <dbl> 100.1
     ## $ asmallint <int> 127
     ## $ justanint <int> 100
@@ -166,8 +167,8 @@ cloc::cloc_pkg_md()
 
 | Lang | \# Files |  (%) | LoC |  (%) | Blank lines |  (%) | \# Lines |  (%) |
 | :--- | -------: | ---: | --: | ---: | ----------: | ---: | -------: | ---: |
-| R    |        8 | 0.89 | 232 | 0.85 |          77 | 0.71 |      160 | 0.76 |
-| Rmd  |        1 | 0.11 |  42 | 0.15 |          32 | 0.29 |       51 | 0.24 |
+| R    |        8 | 0.89 | 250 | 0.83 |          83 | 0.72 |      194 | 0.79 |
+| Rmd  |        1 | 0.11 |  50 | 0.17 |          32 | 0.28 |       53 | 0.21 |
 
 ## Code of Conduct
 

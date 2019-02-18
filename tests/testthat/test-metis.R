@@ -6,12 +6,12 @@ drv <- metis::Athena()
 
 expect_is(drv, "AthenaDriver")
 
-dbConnect(
+metis::dbConnect(
   drv = drv,
-  schema_name = "sampledb",
-  provider = "com.simba.athena.amazonaws.auth.PropertiesFileCredentialsProvider",
+  Schema = "sampledb",
+  AwsCredentialsProviderClass = "com.simba.athena.amazonaws.auth.PropertiesFileCredentialsProvider",
   AwsCredentialsProviderArguments = path.expand("~/.aws/athenaCredentials.props"),
-  s3_staging_dir = "s3://aws-athena-query-results-569593279821-us-east-1",
+  S3OutputLocation = "s3://aws-athena-query-results-569593279821-us-east-1",
 ) -> con
 
 expect_is(con, "AthenaConnection")

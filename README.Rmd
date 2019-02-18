@@ -3,6 +3,20 @@ output: rmarkdown::github_document
 editor_options: 
   chunk_output_type: console
 ---
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.retina = 2
+)
+
+Sys.setenv(
+  AWS_S3_STAGING_DIR = "s3://aws-athena-query-results-569593279821-us-east-1"
+)
+
+options(width=120)
+```
 
 # metis
 
@@ -55,31 +69,28 @@ devtools::install_gitlab("hrbrmstr/metis")
 devtools::install_github("hrbrmstr/metis")
 ```
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
-options(width=120)
-```
-
 ## Usage
 
-```{r message=FALSE, warning=FALSE}
+```{r}
 library(metis)
 
 # current verison
 packageVersion("metis")
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r cache=FALSE}
 library(rJava)
 library(RJDBC)
 library(metis)
-library(magrittr) 
+library(magrittr) # for piping b/c I'm addicted
+```
 
+```{r}
 dbConnect(
-  drv = metis::Athena(),
-  schema_name = "sampledb",
-  provider = "com.simba.athena.amazonaws.auth.PropertiesFileCredentialsProvider",
-  AwsCredentialsProviderArguments = path.expand("~/.aws/athenaCredentials.props"),
-  s3_staging_dir = "s3://aws-athena-query-results-569593279821-us-east-1",
+  metis::Athena(),
+  Schema = "sampledb",
+  AwsCredentialsProviderClass = "com.simba.athena.amazonaws.auth.PropertiesFileCredentialsProvider",
+  AwsCredentialsProviderArguments = path.expand("~/.aws/athenaCredentials.props")
 ) -> con
 
 dbListTables(con, schema="sampledb")

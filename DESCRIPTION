@@ -16,7 +16,9 @@ SystemRequirements: JDK 1.8+
 License: MIT + file LICENSE
 Suggests:
     testthat,
-    covr
+    covr,
+    knitr,
+    rmarkdown
 Depends:
     R (>= 3.2.0),
     metis.jars,
@@ -30,4 +32,4 @@ Imports:
 RoxygenNote: 6.1.1
 Remotes:
     hrbrmstr/metis.jars
-
+VignetteBuilder: knitr

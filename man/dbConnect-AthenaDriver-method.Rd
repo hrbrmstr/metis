@@ -5,41 +5,53 @@
 \alias{dbConnect,AthenaDriver-method}
 \title{AthenaJDBC}
 \usage{
-\S4method{dbConnect}{AthenaDriver}(drv,
-  provider = "com.simba.athena.amazonaws.auth.DefaultAWSCredentialsProviderChain",
-  region = "us-east-1",
-  s3_staging_dir = Sys.getenv("AWS_S3_STAGING_DIR"),
-  schema_name = "default", fetch_size = 1000L,
-  max_error_retries = 10, connection_timeout = 10000,
-  socket_timeout = 10000, log_path = "", log_level = 0, ...)
+\S4method{dbConnect}{AthenaDriver}(drv, Schema = "default",
+  AwsRegion = "us-east-1",
+  AwsCredentialsProviderClass = "com.simba.athena.amazonaws.auth.DefaultAWSCredentialsProviderChain",
+  S3OutputLocation = Sys.getenv("AWS_S3_STAGING_DIR", unset = ""),
+  MaxErrorRetry = 10, ConnectTimeout = 10000, SocketTimeout = 10000,
+  LogPath = "", LogLevel = 0, fetch_size = 1000L, ...)
 }
 \arguments{
 \item{drv}{driver}
 
-\item{provider}{JDBC auth provider (ideally leave default)}
+\item{Schema}{The name of the database schema to use when a schema is not explicitly
+specified in a query. You can still issue queries on other schemas by explicitly
+specifying the schema in the query.}
 
-\item{region}{AWS region the Athena tables are in}
+\item{AwsRegion}{AWS region the Athena tables are in}
 
-\item{s3_staging_dir}{A write-able bucket on S3 that you have permissions for}
+\item{AwsCredentialsProviderClass}{JDBC auth provider; You can add a
+lengrh1 character vecrtor named parameter `AwsCredentialsProviderArguments`
+to the `dbConnect()`  call to use alternate auth providers. Use a
+comma-separated list of String arguments.}
 
-\item{schema_name}{LOL if only this actually worked with Amazon's hacked Presto driver}
+\item{S3OutputLocation}{A write-able bucket on S3 that you have permissions for}
+
+\item{MaxErrorRetry, ConnectTimeout, SocketTimeout}{technical connection info that you should only muck with if you know what you're doing.}
+
+\item{LogPath, LogPath}{The Athena JDBC driver can (shockingly) provide a decent bit
+of data in logs. Set this to a temporary directory or something log4j can use. For
+`LogPath` use the names ("INFO", "DEBUG", "WARN", "ERROR", "ALL", "OFF", "FATAL", "TRACE") or
+their corresponding integer values 0-6.}
 
 \item{fetch_size}{Athena results fetch size}
-
-\item{max_error_retries, connection_timeout, socket_timeout}{technical connection info that you should only muck with if you know what you're doing.}
-
-\item{log_path, log_level}{The Athena JDBC driver can (shockingly) provide a decent bit
-of data in logs. Set this to a temporary directory or something log4j can use. For
-`log_level` use the names ("INFO", "DEBUG", "WARN", "ERROR", "ALL", "OFF", "FATAL", "TRACE") or
-their corresponding integer values 0-6.}
 
 \item{...}{passed on to the driver. See Details.}
 }
 \description{
 Connect to Athena
 }
-\section{Driver Configuration Options}{
+\details{
+Mandatory JDBC connection parameters are also named function
+parameters. You can use `...` to supply additional/optional
+parameters.
+}
+\section{Higlighted Extra Driver Configuration Options}{
 
+
+These are take from the second item in References. See that resource
+for more information.
 
 - `BinaryColumnLength`: <int> The maximum data length for `BINARY` columns. Default `32767L`
 - `ComplexTypeColumnLength`: <int> The maximum data length for `ARRAY`, `MAP`, and `STRUCT` columns. Default `65535L`
