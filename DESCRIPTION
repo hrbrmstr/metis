@@ -31,5 +31,5 @@ Imports:
     aws.signature
 RoxygenNote: 6.1.1
 Remotes:
-    hrbrmstr/metis.jars
+    hrbrmstr/metis-jars
 VignetteBuilder: knitr
