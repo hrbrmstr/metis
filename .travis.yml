@@ -1,0 +1,22 @@
+language: r
+
+warnings_are_errors: true
+
+cache: packages
+
+sudo: required
+
+jdk:
+  - oraclejdk8
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-set-default
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+
+r:
+ - oldrel
+ - release

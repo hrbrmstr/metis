@@ -6,7 +6,7 @@ Date: 2019-02-14
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5670-2640")),
-    person("Derek", "Abdine", comment = "Authentication driver update"),
+    person("Derek", "Abdine", role = "ctb", comment = "Authentication driver update"),
     person("Zachary", "Kurtz", email = "zdkurtz@gmail.com", role = "ctb")
   )
 Maintainer: Bob Rudis <bob@rud.is>
