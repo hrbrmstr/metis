@@ -37,7 +37,7 @@ Athena <- function(identifier.quote = '`') {
 
 #' AthenaJDBC
 #'
-#' Connect to Athena
+#' Connect to Athenadb
 #'
 #' Mandatory JDBC connection parameters are also named function
 #' parameters. You can use `...` to supply additional/optional
@@ -64,9 +64,9 @@ Athena <- function(identifier.quote = '`') {
 #' @param S3OutputLocation A write-able bucket on S3 that you have permissions for
 #' @param MaxErrorRetry,ConnectTimeout,SocketTimeout
 #'     technical connection info that you should only muck with if you know what you're doing.
-#' @param LogPath,LogPath The Athena JDBC driver can (shockingly) provide a decent bit
-#'     of data in logs. Set this to a temporary directory or something log4j can use. For
-#'     `LogPath` use the names ("INFO", "DEBUG", "WARN", "ERROR", "ALL", "OFF", "FATAL", "TRACE") or
+#' @param LogLevel,LogPath The Athena JDBC driver can provide a decent bit
+#'     of data in logs. Set this to a temporary directory or something `log4j` can use. For
+#'     `LogPath` use the names ("`INFO`", "`DEBUG`", "`WARN`", "`ERROR`", "`ALL`", "`OFF`", "`FATAL`", "`TRACE`") or
 #'     their corresponding integer values 0-6.
 #' @param fetch_size Athena results fetch size
 #' @param ... passed on to the driver. See Details.
@@ -82,7 +82,10 @@ setMethod(
     drv,
     Schema = "default",
     AwsRegion = "us-east-1",
-    AwsCredentialsProviderClass = "com.simba.athena.amazonaws.auth.DefaultAWSCredentialsProviderChain",
+    AwsCredentialsProviderClass = paste0(c(
+      "com", "simba", "athena", "amazonaws","auth",
+      "DefaultAWSCredentialsProviderChain"
+    ), collapse = "."),
     S3OutputLocation = Sys.getenv("AWS_S3_STAGING_DIR", unset = ""),
     MaxErrorRetry = 10,
     ConnectTimeout = 10000,

@@ -7,8 +7,9 @@
 \usage{
 \S4method{dbConnect}{AthenaDriver}(drv, Schema = "default",
   AwsRegion = "us-east-1",
-  AwsCredentialsProviderClass = "com.simba.athena.amazonaws.auth.DefaultAWSCredentialsProviderChain",
-  S3OutputLocation = Sys.getenv("AWS_S3_STAGING_DIR", unset = ""),
+  AwsCredentialsProviderClass = paste0(c("com", "simba", "athena",
+  "amazonaws", "auth", "DefaultAWSCredentialsProviderChain"), collapse =
+  "."), S3OutputLocation = Sys.getenv("AWS_S3_STAGING_DIR", unset = ""),
   MaxErrorRetry = 10, ConnectTimeout = 10000, SocketTimeout = 10000,
   LogPath = "", LogLevel = 0, fetch_size = 1000L, ...)
 }
@@ -30,9 +31,9 @@ comma-separated list of String arguments.}
 
 \item{MaxErrorRetry, ConnectTimeout, SocketTimeout}{technical connection info that you should only muck with if you know what you're doing.}
 
-\item{LogPath, LogPath}{The Athena JDBC driver can (shockingly) provide a decent bit
-of data in logs. Set this to a temporary directory or something log4j can use. For
-`LogPath` use the names ("INFO", "DEBUG", "WARN", "ERROR", "ALL", "OFF", "FATAL", "TRACE") or
+\item{LogLevel, LogPath}{The Athena JDBC driver can provide a decent bit
+of data in logs. Set this to a temporary directory or something `log4j` can use. For
+`LogPath` use the names ("`INFO`", "`DEBUG`", "`WARN`", "`ERROR`", "`ALL`", "`OFF`", "`FATAL`", "`TRACE`") or
 their corresponding integer values 0-6.}
 
 \item{fetch_size}{Athena results fetch size}
@@ -40,7 +41,7 @@ their corresponding integer values 0-6.}
 \item{...}{passed on to the driver. See Details.}
 }
 \description{
-Connect to Athena
+Connect to Athenadb
 }
 \details{
 Mandatory JDBC connection parameters are also named function
