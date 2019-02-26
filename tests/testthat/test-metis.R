@@ -4,7 +4,7 @@ drv <- metis::Athena()
 
 expect_is(drv, "AthenaDriver")
 
-skip_on_cran()
+skip_on_cran()https://github.com/hrbrmstr/metis/blob/master/tests/testthat/test-metis.R#L3-L15
 
 if (identical(Sys.getenv("TRAVIS"), "true")) {
 

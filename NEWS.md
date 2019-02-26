@@ -1,8 +1,7 @@
 0.3.0
 =========
 
-- Added `sql_translate_env.AthenaConnection()`
-- Handles Athena JDBC column types!
+- Refactor
 
 0.2.0
 =========
